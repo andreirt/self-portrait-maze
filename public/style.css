@@ -1,6 +1,25 @@
 body {
-  background-color: lightblue;
-
-  /* leave it to hide the scrollbars */
+  background-color: white;
   overflow: hidden;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+video {
+  height: auto;
+  position: absolute;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

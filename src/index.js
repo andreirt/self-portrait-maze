@@ -20,10 +20,57 @@ console.log(fxrand()) // deterministic PRNG function, use it instead of Math.ran
 //   "Inverted": true
 // }
 
-// this code writes the values to the DOM as an example
-const container = document.createElement("div")
-container.innerText = `
-  random hash: ${fxhash}\n
-  some pseudo random values: [ ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()},... ]\n
-`
-document.body.prepend(container)
+
+let video;
+let videoCanvas;
+let mazeCanvas;
+
+function init() {
+  video = document.getElementById('camera-video');
+  videoCanvas = document.getElementById('video-canvas');
+  mazeCanvas = document.getElementById('maze-canvas');
+
+  setupSize();
+  window.addEventListener('resize', setupSize);
+
+  navigator.mediaDevices.getUserMedia({video: true})
+    .then(function(stream) {        
+        video.srcObject = stream;
+        update();
+    })
+    .catch(function(error) {
+      console.log(error);
+        window.alert('You need a webcam to see this work');
+    });
+}
+
+function setupSize() {
+  videoCanvas.width = window.innerWidth;
+  videoCanvas.height = window.innerHeight;
+
+  mazeCanvas.width = window.innerWidth;
+  mazeCanvas.height = window.innerHeight;
+}
+
+function update() {
+
+  let hRatio = window.innerWidth / video.videoWidth;
+  let vRatio = window.innerHeight / video.videoHeight;
+
+  let ratio = Math.max(hRatio, vRatio);
+  let scaledWidth = video.videoWidth * ratio;
+  let scaledHeight = video.videoHeight * ratio;
+  let screenX = Math.round((scaledWidth - window.innerWidth) / 2);
+  let screenY = Math.round((scaledHeight - window.innerHeight) / 2);
+
+  let videoX = Math.round(screenX / ratio);
+  let videoY = Math.round(screenY / ratio);
+  let videoWidth = video.videoWidth - (videoX * 2);
+  let videoHeight = video.videoHeight - (videoY * 2);
+  
+  videoCanvas.getContext('2d').drawImage(video, videoX, videoY, videoWidth, videoHeight, 0, 0, window.innerWidth, window.innerHeight);
+  requestAnimationFrame(update);
+}
+
+
+init(); 
