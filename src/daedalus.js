@@ -38,7 +38,7 @@ class Daedalus
   
     paintCell( x, y )
     {
-        this.targetContext.drawImage(this.sourceCanvas, (x * this.edge) + x, (y * this.edge) + y, this.edge + 1, this.edge + 1, (x * this.edge) + x, (y * this.edge) + y, this.edge + 1, this.edge + 1);
+        this.targetContext.drawImage(this.sourceCanvas, (x * this.edge), (y * this.edge), this.edge + 1, this.edge + 1, (x * this.edge), (y * this.edge), this.edge + 1, this.edge + 1);
     }
 }
 

@@ -75,8 +75,10 @@ function init() {
 
 function oneTimeSetup() {
   EDGE = window.$fxhashFeatures['edge'];
+  EDGE = 16;
 
-  fps = window.$fxhashFeatures['fps'];;
+  fps = window.$fxhashFeatures['fps'];
+  fps = 60;
   fpsInterval = 1000 / fps;
 }
 
@@ -110,8 +112,8 @@ function setup() {
   videoWidth = video.videoWidth - (videoX * 2);
   videoHeight = video.videoHeight - (videoY * 2);
 
-  let mazeWidth =  Math.floor( (window.innerWidth - (EDGE * 2)) / (EDGE * 2) );
-  let mazeHeight = Math.floor( (window.innerHeight - (EDGE * 2)) / (EDGE * 2) );
+  let mazeWidth =  Math.floor( (window.innerWidth - (EDGE * 1)) / (EDGE * 2) );
+  let mazeHeight = Math.floor( (window.innerHeight - (EDGE * 1)) / (EDGE * 2) );
 
   maze = new Maze(mazeWidth, mazeHeight);
   maze.generate();  
